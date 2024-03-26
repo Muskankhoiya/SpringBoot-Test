@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = 'C:\\.Net & Java Software\\Open JKD -11' // Update this path to your JDK 11 installation path
+        JAVA_HOME = 'C:\\.Net & Java Software\\Open JKD -11'
         PATH = "${JAVA_HOME}\\bin;C:\\.Net & Java Software\\apache-maven-3.6.3-bin\\apache-maven-3.6.3\\bin;${env.PATH}"
     }
 
