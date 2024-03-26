@@ -1,27 +1,28 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Muskankhoiya/SpringBoot-Test']]])
+                // Checkout the code from the SCM
+                checkout scm
             }
         }
-
         stage('Build') {
             steps {
-                bat 'mvn clean package'
-            }
-            post {
-                success {
-                    archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
-                }
+                // Build the Spring Boot application
+                bat 'mvnw.cmd clean package'
             }
         }
-
+        stage('Test') {
+            steps {
+                // Run the tests
+                bat 'mvnw.cmd test'
+            }
+        }
         stage('Deploy') {
             steps {
-                // Add deployment steps here
+                // Deploy the application
+                bat 'mvnw.cmd deploy'
             }
         }
     }
