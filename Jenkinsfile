@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         jdk 'jdk1.8'
-        maven 'maven 3.8.1' // Corrected Maven tool name
+        maven 'maven 3.8.1'
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                bat 'mvn clean package'
             }
 
             post {
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'mvn test -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                bat 'mvn test'
             }
 
             post {
@@ -47,7 +47,6 @@ pipeline {
     post {
         success {
             echo 'Build and test succeeded! Deploying the application...'
-            // Add your deployment steps here
         }
 
         failure {
