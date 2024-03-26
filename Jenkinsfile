@@ -1,9 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK 17'
-        maven 'maven 3.8.1'
+    environment {
+        JAVA_HOME = 'C:\\.Net & Java Software\\Open JKD -11' // Update this path to your JDK 11 installation path
     }
 
     stages {
@@ -15,7 +14,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                bat """
+                set PATH=%PATH%;%JAVA_HOME%\\bin
+                mvn clean package
+                """
             }
 
             post {
@@ -27,7 +29,10 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat """
+                set PATH=%PATH%;%JAVA_HOME%\\bin
+                mvn test
+                """
             }
 
             post {
