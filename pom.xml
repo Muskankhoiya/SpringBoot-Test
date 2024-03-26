@@ -14,7 +14,7 @@
 	<name>miniAssignment2</name>
 	<description>Assignment project for Spring Boot</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		
