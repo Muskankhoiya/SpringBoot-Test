@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
 
             post {
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
 
             post {
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 // This stage is just a placeholder.
                 // You can add deployment steps here.
-                sh 'echo "Deploying the application..."'
+                bat 'echo "Deploying the application..."'
             }
         }
     }
