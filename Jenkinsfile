@@ -10,7 +10,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                script {
+                    if (isUnix()) {
+                        sh 'mvn clean package -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                    } else {
+                        bat 'mvn clean package -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                    }
+                }
             }
 
             post {
@@ -22,7 +28,13 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                script {
+                    if (isUnix()) {
+                        sh 'mvn test -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                    } else {
+                        bat 'mvn test -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8'
+                    }
+                }
             }
 
             post {
@@ -34,9 +46,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // This stage is just a placeholder.
-                // You can add deployment steps here.
-                bat 'echo "Deploying the application..."'
+                script {
+                    if (isUnix()) {
+                        sh 'echo "Deploying the application..."'
+                    } else {
+                        bat 'echo "Deploying the application..."'
+                    }
+                }
             }
         }
     }
@@ -51,4 +67,12 @@ pipeline {
             echo 'Build or test failed! Check the Jenkins console output for more details.'
         }
     }
+}
+
+def isUnix() {
+    return !(isWindows())
+}
+
+def isWindows() {
+    return (isNode('windows') || isNode('Windows'))
 }
