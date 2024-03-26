@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         JAVA_HOME = 'C:\\.Net & Java Software\\Open JKD -11' // Update this path to your JDK 11 installation path
+        PATH = "${JAVA_HOME}\\bin;C:\\.Net & Java Software\\apache-maven-3.6.3-bin\\apache-maven-3.6.3\\bin;${env.PATH}"
     }
 
     stages {
@@ -14,10 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat """
-                set PATH=%PATH%;%JAVA_HOME%\\bin
-                mvn clean package
-                """
+                bat 'mvn clean package'
             }
 
             post {
@@ -29,10 +27,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat """
-                set PATH=%PATH%;%JAVA_HOME%\\bin
-                mvn test
-                """
+                bat 'mvn test'
             }
 
             post {
