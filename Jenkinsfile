@@ -1,7 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK 11' // Use the name you provided for the JDK in Jenkins Global Tool Configuration
+        jdk 'OpenJDK 11'
+        maven 'maven'
     }
     stages {
         stage('Checkout') {
@@ -11,17 +12,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean package'
+                bat script: 'mvnw.cmd clean package', tool: 'Maven'
             }
         }
         stage('Test') {
             steps {
-                bat 'mvnw.cmd test'
+                bat script: 'mvnw.cmd test', tool: 'Maven'
             }
         }
         stage('Deploy') {
             steps {
-                bat 'mvnw.cmd deploy'
+                bat script: 'mvnw.cmd deploy', tool: 'Maven'
             }
         }
     }
